@@ -1,8 +1,5 @@
-from hashlib import sha256
-import uuid
 
 from microservice_app.repositories.post_repository import PostRepository
-from microservice_app.repositories.user_repository import UserRepository
 
 
 class PostService:
@@ -34,9 +31,4 @@ class PostService:
     def get_posts_by_user_id(user_id):
         return PostRepository.get_posts_by_user_id(user_id)
     
-    @staticmethod
-    def get_posts_by_user_email(email):
-        user = UserRepository.get_user_by_email(email)
-        if user:
-            return PostRepository.get_posts_by_user_id(user.id)
-        return []
+    

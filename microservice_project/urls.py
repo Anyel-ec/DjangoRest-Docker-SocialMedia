@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v2/', include('microservice_app.urls.user_urls')),
     path('api/v2/', include('microservice_app.urls.post_urls')),
+    path('api/v2/', include('microservice_app.urls.category_urls')),
     path('docs/', include_docs_urls(title='Microservice API', public=True))
 ]
