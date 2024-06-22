@@ -24,8 +24,3 @@ class CategoryService:
     @staticmethod
     def delete_category(category_id):
         return CategoryRepository.delete_category(category_id)
-    
-    @staticmethod
-    def get_categories_by_user_id(user_id):
-        return CategoryRepository.get_categories_by_user_id(user_id)
-    

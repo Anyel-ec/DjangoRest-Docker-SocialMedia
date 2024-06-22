@@ -5,5 +5,5 @@ from microservice_app.models.category import Category
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'user_id']
+        fields = ['id', 'name', 'description', 'created_at', 'updated_at']
         
