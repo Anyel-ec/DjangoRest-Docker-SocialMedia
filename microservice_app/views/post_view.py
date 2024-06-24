@@ -50,6 +50,3 @@ class PostView(viewsets.ViewSet):
         email = request.query_params.get('email')
         posts = PostService.get_posts_by_user_email(email)
         return Response(PostSerializer(posts, many=True).data)
-    
-    
-

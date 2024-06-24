@@ -1,6 +1,8 @@
 
 
+from microservice_app.models.category import Category
 from microservice_app.models.post import Post
+from microservice_app.models.user import User
 
 
 class PostRepository:
@@ -26,13 +28,16 @@ class PostRepository:
     def update_post(post_id, post_data):
         post = PostRepository.get_post_by_id(post_id)
         if post:
+            if 'user_id' in post_data:
+                post_data['user_id'] = User.objects.get(id=post_data['user_id'])
+            if 'category_id' in post_data:
+                post_data['category_id'] = Category.objects.get(id=post_data['category_id'])
             for key, value in post_data.items():
                 setattr(post, key, value)
             post.save()
             return post
         return None
     
-    @staticmethod
     def delete_post(post_id):
         post = PostRepository.get_post_by_id(post_id)
         if post:
