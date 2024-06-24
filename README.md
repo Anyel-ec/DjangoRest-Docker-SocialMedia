@@ -9,9 +9,9 @@ This Django project is an application for managing users, posts, and categories,
 ## RESULTS
 ## REST CONSUMER
 ### Core Documentation
-![Alt text](api_doc/doc.PNG)
+![Alt text](api_doc/doc.png)
 ### Test in Insomio (or Postman)
-![Alt text](api_doc/insomia.PNG)
+![Alt text](api_doc/insomia.png)
 
 
 ## Features

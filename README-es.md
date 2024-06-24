@@ -9,9 +9,9 @@ Este proyecto de Django es una aplicación para la gestión de usuarios, posts y
 ## RESULTS
 ## REST CONSUMER
 ### Core Documentation
-![Alt text](api_doc/doc.PNG)
+![Alt text](api_doc/doc.png)
 ### Test in Insomio (or Postman)
-![Alt text](api_doc/insomia.PNG)
+![Alt text](api_doc/insomia.png)
 
 
 ## Características
