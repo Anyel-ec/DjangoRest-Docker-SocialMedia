@@ -9,6 +9,7 @@ from microservice_app.services.post_service import PostService
 class PostView(viewsets.ViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    parser_classes = [MultiPartParser, FormParser]  # Añadir parsers para multipart/form-data
 
 
     def create(self, request):

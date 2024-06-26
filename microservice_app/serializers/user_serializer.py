@@ -9,3 +9,4 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
             'salt': {'write_only': True}
         }
+        
