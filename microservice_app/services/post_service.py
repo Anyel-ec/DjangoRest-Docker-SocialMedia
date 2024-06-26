@@ -1,13 +1,17 @@
 
+from microservice_app.models.post import Post
 from microservice_app.repositories.post_repository import PostRepository
 
 
 class PostService:
 
     @staticmethod
-    def create_post(post_data):
-        new_post = PostRepository.add_post(post_data)
-        return new_post
+    def create_post(post_data, files):
+        post = Post(**post_data)
+        if 'image' in files:
+            post.image = files['image']
+        post.save()
+        return post
     
 
     @staticmethod

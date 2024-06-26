@@ -10,6 +10,8 @@ class Post(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
+
     
     def __str__(self):
         return self.title
@@ -23,5 +25,7 @@ class Post(models.Model):
             'category_id': self.category_id.id,
             'num_likes': self.num_likes,
             'num_comments': self.num_comments,
-            'time_created': self.time_created
+            'time_created': self.time_created, 
+            'image': self.image.url if self.image else None  # Agregar la URL de la imagen
+
         }

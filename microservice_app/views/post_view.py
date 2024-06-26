@@ -1,4 +1,5 @@
 from rest_framework import status, viewsets
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from microservice_app.models.post import Post
@@ -9,10 +10,11 @@ class PostView(viewsets.ViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+
     def create(self, request):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
-            new_post = PostService.create_post(serializer.validated_data)
+            new_post = PostService.create_post(serializer.validated_data, request.FILES)
             return Response(PostSerializer(new_post).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
