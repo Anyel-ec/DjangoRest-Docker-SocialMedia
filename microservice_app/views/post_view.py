@@ -61,3 +61,16 @@ class PostView(viewsets.ViewSet):
         email = request.query_params.get('email')
         posts = PostService.get_posts_by_user_email(email)
         return Response(PostSerializer(posts, many=True).data)
+    
+    def put(self, request, postId):
+        post = Post.objects.get(pk=postId)
+        data = request.data
+
+        if 'existing_image' in data and 'image' not in request.FILES:
+            data['image'] = post.image
+
+        serializer = PostSerializer(post, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
