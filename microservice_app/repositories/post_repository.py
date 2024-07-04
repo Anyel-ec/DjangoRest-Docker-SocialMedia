@@ -24,20 +24,32 @@ class PostRepository:
     def get_all_posts():
         return Post.objects.all()
     
-    @staticmethod
-    def update_post(post_id, post_data):
-        post = PostRepository.get_post_by_id(post_id)
-        if post:
-            if 'user_id' in post_data:
-                post_data['user_id'] = User.objects.get(id=post_data['user_id'])
-            if 'category_id' in post_data:
-                post_data['category_id'] = Category.objects.get(id=post_data['category_id'])
-            for key, value in post_data.items():
-                setattr(post, key, value)
+
+    def update_post(post_id, post_data, files):
+        try:
+            post = Post.objects.get(id=post_id)
+            user_id = post_data.get('user_id')
+
+            # Ensure user_id is an integer
+            if isinstance(user_id, User):
+                user_id = user_id.id
+
+            user = User.objects.get(id=user_id)
+            post.title = post_data.get('title', post.title)
+            post.content = post_data.get('content', post.content)
+            post.category_id = post_data.get('category_id', post.category_id)
+            post.user = user
+
+            # Handle file update if any
+            if 'image' in files:
+                post.image = files['image']
+
             post.save()
             return post
-        return None
+        except Post.DoesNotExist:
+            return None
     
+    @staticmethod
     def delete_post(post_id):
         post = PostRepository.get_post_by_id(post_id)
         if post:

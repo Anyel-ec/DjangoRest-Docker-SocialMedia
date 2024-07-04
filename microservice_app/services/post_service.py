@@ -22,10 +22,13 @@ class PostService:
     def get_all_posts():
         return PostRepository.get_all_posts()
     
-    @staticmethod
-    def update_post(post_id, post_data):
-        updated_post = PostRepository.update_post(post_id, post_data)
-        return updated_post
+
+    def update_post(post_id, post_data, files):
+        # Ensure post_data contains 'user_id' as an integer
+        if 'user_id' in post_data and isinstance(post_data['user_id'], str):
+            post_data['user_id'] = int(post_data['user_id'])
+        return PostRepository.update_post(post_id, post_data, files)
+
     
     @staticmethod
     def delete_post(post_id):

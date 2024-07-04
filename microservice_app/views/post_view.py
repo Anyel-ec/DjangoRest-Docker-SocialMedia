@@ -29,19 +29,27 @@ class PostView(viewsets.ViewSet):
             return Response(PostSerializer(post).data)
         return Response({'message': 'Post no encontrado'}, status=status.HTTP_404_NOT_FOUND)
     
-    def update(self, request, pk=None):
-        post_data = request.data
-        updated_post = PostService.update_post(pk, post_data)
-        if updated_post:
-            return Response(PostSerializer(updated_post).data)
-        return Response({'message': 'Post no encontrado'}, status=status.HTTP_404_NOT_FOUND)
     
+
+    def update(self, request, pk=None):
+        post = PostService.get_post(pk)
+        if not post:
+            return Response({'message': 'Post no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = PostSerializer(post, data=request.data)
+        if serializer.is_valid():
+            updated_post = PostService.update_post(pk, serializer.validated_data, request.FILES)
+            return Response(PostSerializer(updated_post).data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
     def destroy(self, request, pk=None):
         success = PostService.delete_post(pk)
         if success:
             return Response({'message': 'Post eliminado'}, status=status.HTTP_200_OK)
         return Response({'message': 'Post no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
     
+   
     @action(detail=False, methods=['get'], url_path='by_user')
     def get_posts_by_user_id(self, request):
         user_id = request.query_params.get('user_id')
