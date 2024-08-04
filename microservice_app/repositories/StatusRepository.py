@@ -1,6 +1,4 @@
-from ..models import Gender, Province, Status
-
-
+from microservice_app.models.Status import  Status
 class StatusRepository:
 
     @staticmethod

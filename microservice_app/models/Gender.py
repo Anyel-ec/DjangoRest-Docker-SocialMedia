@@ -1,3 +1,4 @@
+
 from django.db import models
 
 class Gender(models.Model):
@@ -13,9 +14,3 @@ class Gender(models.Model):
 
     def __str__(self):
         return self.gender
-    
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'gender': self.gender
-        }

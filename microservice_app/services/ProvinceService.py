@@ -1,4 +1,4 @@
-from ..repositories import GenderRepository, ProvinceRepository, StatusRepository
+from microservice_app.repositories.ProvinceRepository import ProvinceRepository
 
 
 class ProvinceService:

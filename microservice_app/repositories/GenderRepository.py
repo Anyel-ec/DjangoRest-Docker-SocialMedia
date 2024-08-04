@@ -1,4 +1,4 @@
-from ..models import Gender, Province, Status
+from microservice_app.models.Gender import Gender
 
 
 class GenderRepository:

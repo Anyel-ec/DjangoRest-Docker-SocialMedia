@@ -1,7 +1,6 @@
 
 from rest_framework import serializers
-from ..models import Gender
-
+from microservice_app.models.Gender import Gender
 
 class GenderSerializer(serializers.ModelSerializer):
     class Meta:

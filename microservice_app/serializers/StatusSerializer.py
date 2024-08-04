@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import  Status
+from microservice_app.models.Status import Status
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:

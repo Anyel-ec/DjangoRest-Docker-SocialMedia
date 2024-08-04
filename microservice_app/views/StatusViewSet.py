@@ -1,10 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import status, viewsets
-from ..models import Gender, Province, Status
+from microservice_app.models.Status import Status
 from microservice_app.serializers.StatusSerializer import StatusSerializer
-from ..services import GenderService, ProvinceService, StatusService
-
-
+from microservice_app.services.StatusService import StatusService
 class StatusViewSet(viewsets.ViewSet):
 
     def list(self, request):

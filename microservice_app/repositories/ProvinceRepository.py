@@ -1,6 +1,4 @@
-from ..models import Gender, Province, Status
-
-
+from microservice_app.models.Province import Province
 class ProvinceRepository:
 
     @staticmethod
