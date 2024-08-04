@@ -1,8 +1,9 @@
+# services/user_service.py
+
 from hashlib import sha256
 import uuid
 from django.core.exceptions import ValidationError
 from microservice_app.repositories.user_repository import UserRepository
-
 
 class UserService:
 

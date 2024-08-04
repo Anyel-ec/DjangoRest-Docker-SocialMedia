@@ -1,3 +1,5 @@
+# views/user_view.py
+
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -13,7 +15,7 @@ class UserView(viewsets.ViewSet):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             result = UserService.create_user(serializer.validated_data)
-            if 'error' in result:
+            if isinstance(result, dict) and 'error' in result:
                 return Response({'message': result['error']}, status=status.HTTP_400_BAD_REQUEST)
             return Response(UserSerializer(result).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -71,7 +73,6 @@ class UserView(viewsets.ViewSet):
             return Response({'message': 'Usuario existe'}, status=status.HTTP_200_OK)
         return Response({'message': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
     
-    # update password of user, if password is correct
     @action(detail=True, methods=['put'], url_path='update_password')
     def update_password(self, request, pk=None):
         password = request.data.get('password')

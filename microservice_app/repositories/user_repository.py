@@ -1,3 +1,5 @@
+# repositories/user_repository.py
+
 from microservice_app.models.user import User
 from django.core.exceptions import ValidationError
 
@@ -5,8 +7,8 @@ class UserRepository:
 
     @staticmethod
     def add_user(user_data):
-        if UserRepository.verify_exist_user(user_data['email'], user_data.get('username')):
-            raise ValidationError("User with this email or username already exists")
+        if UserRepository.verify_exist_user(user_data['email']):
+            raise ValidationError("User with this email already exists")
         
         user = User(**user_data)
         user.save()
@@ -49,7 +51,5 @@ class UserRepository:
         return False
 
     @staticmethod
-    def verify_exist_user(email, username=None):
-        if username:
-            return User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists()
+    def verify_exist_user(email):
         return User.objects.filter(email=email).exists()
