@@ -19,11 +19,11 @@ from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 from django.conf.urls.static import static
 from django.conf import settings
+from microservice_app.urls import urlpatterns as microservice_app_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v2/', include('microservice_app.urls.user_urls')),
-    path('api/v2/', include('microservice_app.urls.post_urls')),
-    path('api/v2/', include('microservice_app.urls.category_urls')),
+    path('api/', include(microservice_app_urls)),
+
     path('docs/', include_docs_urls(title='Microservice API', public=True))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

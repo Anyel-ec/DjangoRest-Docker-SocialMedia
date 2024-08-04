@@ -1,6 +1,6 @@
 from hashlib import sha256
 import uuid
-
+from django.core.exceptions import ValidationError
 from microservice_app.repositories.user_repository import UserRepository
 
 
@@ -15,8 +15,11 @@ class UserService:
         user_data['password'] = hashed_password
         user_data['salt'] = salt
 
-        new_user = UserRepository.add_user(user_data)
-        return new_user
+        try:
+            new_user = UserRepository.add_user(user_data)
+            return new_user
+        except ValidationError as e:
+            return {'error': str(e)}
 
     @staticmethod
     def get_user(user_id):

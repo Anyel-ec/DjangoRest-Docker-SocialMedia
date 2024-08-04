@@ -12,8 +12,10 @@ class UserView(viewsets.ViewSet):
     def create(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            new_user = UserService.create_user(serializer.validated_data)
-            return Response(UserSerializer(new_user).data, status=status.HTTP_201_CREATED)
+            result = UserService.create_user(serializer.validated_data)
+            if 'error' in result:
+                return Response({'message': result['error']}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(UserSerializer(result).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request):
