@@ -24,6 +24,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EUREKA_SERVER = "http://localhost:8761/eureka/" 
 APP_NAME = "django-microservice"  # El nombre que quieres que tu aplicación registre en Eureka
 
+
+#Rabbit MQ
+RABBITMQ_HOST = 'localhost'
+RABBITMQ_PORT = 5672
+RABBITMQ_USER = 'guest'
+RABBITMQ_PASSWORD = 'guest'
+
+
+
 # Registrar el servicio en Eureka
 eureka_client.init(eureka_server=EUREKA_SERVER,
                    app_name=APP_NAME,

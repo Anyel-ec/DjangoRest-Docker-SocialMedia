@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from microservice_app.models.user import User
 from microservice_app.serializers.user_serializer import UserSerializer
 from microservice_app.services.user_service import UserService
-
+from microservice_project.rabbitmq_settings import publish_message
 class UserView(viewsets.ViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -22,12 +22,16 @@ class UserView(viewsets.ViewSet):
 
     def list(self, request):
         users = UserService.get_all_users()
-        return Response(UserSerializer(users, many=True).data)
+        user_data = UserSerializer(users, many=True).data
+        publish_message('usersQueue', user_data)
+        return Response(user_data)
 
     def retrieve(self, request, pk=None):
         user = UserService.get_user(pk)
         if user:
-            return Response(UserSerializer(user).data)
+            user_data = UserSerializer(user).data
+            publish_message('userByIdQueue', user_data)
+            return Response(user_data)
         return Response({'message': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
     def update(self, request, pk=None):
