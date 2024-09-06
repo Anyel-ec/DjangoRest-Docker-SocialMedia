@@ -61,8 +61,8 @@ class UserService:
         if user:
             hashed_password = sha256((user.salt + password).encode()).hexdigest()
             if hashed_password == user.password:
-                return user  # Devuelve el objeto User si la autenticación es correcta
-        return None  # Devuelve None si la autenticación falla
+                return True
+        return False
 
     @staticmethod
     def get_user_by_email(email):

@@ -13,6 +13,7 @@ import json
 class UserView(viewsets.ViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
 
     def create(self, request):
         serializer = UserSerializer(data=request.data)
