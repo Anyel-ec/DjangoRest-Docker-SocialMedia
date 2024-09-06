@@ -27,7 +27,7 @@ APP_NAME = "django-microservice"  # El nombre que quieres que tu aplicación reg
 
 #Rabbit MQ
 RABBITMQ_HOST = 'localhost'
-RABBITMQ_PORT = 5672
+RABBITMQ_PORT = 5673
 RABBITMQ_USER = 'guest'
 RABBITMQ_PASSWORD = 'guest'
 
@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'microservice_app',
     'rest_framework',
+    'rest_framework_simplejwt',
+
 ]
 
 
@@ -136,5 +138,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', 
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', 
+    ),
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
